@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coming soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9F1EF; --ink:#10262B; --muted:#4A6166; --accent:#2B4BFF; --accent-ink:#fff; --line:#B9CCC9;
+  --font:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0C1517;--ink:#E6F0EE;--muted:#9DB4B0;--accent:#8EA0FF;--accent-ink:#0C1517;--line:#27393C;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0C1517;--ink:#E6F0EE;--muted:#9DB4B0;--accent:#8EA0FF;--accent-ink:#0C1517;--line:#27393C;color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5}
+.page{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:28px clamp(20px,6vw,72px)}
+.brand{font-weight:800;font-size:1.25rem;letter-spacing:-.02em}
+main{padding:clamp(32px,8vh,96px) 0}
+h1{font-size:clamp(2.4rem,8vw,6.5rem);line-height:.98;letter-spacing:-.04em;font-weight:800;margin:0 0 20px;max-width:14ch}
+.lead{font-size:clamp(1.05rem,2vw,1.3rem);color:var(--muted);max-width:46ch;margin:0 0 clamp(32px,6vh,56px)}
+.count{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,2vw,24px);max-width:900px;margin:0 0 40px;padding:0;list-style:none}
+.count li{border-top:2px solid var(--ink);padding-top:10px}
+.num{display:block;font-size:clamp(2.6rem,11vw,8rem);line-height:1;font-weight:800;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.unit{display:block;color:var(--muted);font-size:clamp(.85rem,1.6vw,1.05rem);margin-top:6px}
+.cta{display:inline-block;background:var(--accent);color:var(--accent-ink);font:700 1.05rem var(--font);padding:14px 26px;border-radius:999px;text-decoration:none}
+.cta:hover{filter:brightness(1.08)}
+.cta:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+footer{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:.9rem}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="brand">Your Brand</header>
+
+  <main>
+    <h1>Something new is on the way</h1>
+    <p class="lead">We’re putting the finishing touches on our new site. Check back when the clock reaches zero, or get a note from us on launch day.</p>
+
+    <ul class="count" aria-label="Time until launch" id="count">
+      <li><span class="num" id="d">00</span><span class="unit">days</span></li>
+      <li><span class="num" id="h">00</span><span class="unit">hours</span></li>
+      <li><span class="num" id="m">00</span><span class="unit">minutes</span></li>
+      <li><span class="num" id="s">00</span><span class="unit">seconds</span></li>
+    </ul>
+
+    <a class="cta" href="mailto:hello@example.com?subject=Notify%20me%20at%20launch">Email me at launch</a>
+  </main>
+
+  <footer>
+    <span>© 2026 Your Brand</span>
+    <a href="mailto:hello@example.com">hello@example.com</a>
+  </footer>
+</div>
+
+<script>
+// Change this date to your real launch date.
+var LAUNCH = new Date('2027-01-15T09:00:00');
+var el = {d:document.getElementById('d'),h:document.getElementById('h'),m:document.getElementById('m'),s:document.getElementById('s')};
+function pad(n){return String(n).padStart(2,'0');}
+function tick(){
+  var diff = Math.max(0, LAUNCH - new Date());
+  var t = Math.floor(diff/1000);
+  el.d.textContent = pad(Math.floor(t/86400));
+  el.h.textContent = pad(Math.floor(t%86400/3600));
+  el.m.textContent = pad(Math.floor(t%3600/60));
+  el.s.textContent = pad(t%60);
+  if(diff===0){document.querySelector('h1').textContent='We’re live';clearInterval(timer);}
+}
+var timer = setInterval(tick,1000);
+tick();
+</script>
+</body>
+</html>
