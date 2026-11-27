@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comingsoon-page-image-deployment
+  namespace: comingsoon
+spec:
+  selector:
+    matchLabels:
+      app: comingsoon-page
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: comingsoon-page
+    spec:
+      containers:
+      - name: myapp
+        image: moaaz65/comingsoon:1
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
